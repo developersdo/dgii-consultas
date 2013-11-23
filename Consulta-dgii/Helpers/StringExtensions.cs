@@ -11,5 +11,9 @@ namespace Consulta_dgii.Helpers
         {
             return str.Replace("&nbsp;", "");
         }
+        
+        public static string ToStringOrNull(this object obj) {
+            return obj == null ? null : obj.ToString();
+        }
     }
 }
