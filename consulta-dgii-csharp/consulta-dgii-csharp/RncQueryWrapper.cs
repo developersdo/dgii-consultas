@@ -22,10 +22,8 @@ namespace consulta_dgii_csharp
             request.AddParameter("__EVENTTARGET", "");
             request.AddParameter("__EVENTARGUMENT", "");
             request.AddParameter("__LASTFOCUS", "");
-            request.AddParameter("__VIEWSTATE",
-                "/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PDxYCHgdWaXNpYmxlZ2QWBAIBDw8WAh4EVGV4dAUeTm8gZXhpc3RlbiByZWdpc3Ryb3MgQXNvY2lhZG9zZGQCAw88KwALAGRkNbZ1Awnu5Ci/S4J0pkzl4lgkQrg=");
-            request.AddParameter("__EVENTVALIDATION",
-                "/wEWBgKi/dSQAwKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CmGDH9QVaQPr1itVc3r/K/qvjJBc");
+            request.AddParameter("__VIEWSTATE", "/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PZBYCAgMPPCsACwBkZHTpAYYQQIXs/JET7TFTjBqu3SYU");
+            request.AddParameter("__EVENTVALIDATION", "/wEWBgKl57TuAgKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CtBj1Z9nVylTy4C9Okzc2CBMDFcB");
             
             //Estos son los valores
             request.AddParameter("rbtnlTipoBusqueda", "0");

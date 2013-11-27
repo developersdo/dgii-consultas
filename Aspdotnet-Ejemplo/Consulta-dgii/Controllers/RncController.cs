@@ -19,14 +19,14 @@ namespace Consulta_dgii.Controllers
             var client = new RestClient("http://www.dgii.gov.do/app/WebApps/Consultas/");
 
             var request = new RestRequest("rnc/RncWeb.aspx", Method.POST);
-
+            
             request.AddParameter("__EVENTTARGET", "");
             request.AddParameter("__EVENTARGUMENT", "");
             request.AddParameter("__LASTFOCUS", "");
             request.AddParameter("__VIEWSTATE",
-                "/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PDxYCHgdWaXNpYmxlZ2QWBAIBDw8WAh4EVGV4dAUeTm8gZXhpc3RlbiByZWdpc3Ryb3MgQXNvY2lhZG9zZGQCAw88KwALAGRkNbZ1Awnu5Ci/S4J0pkzl4lgkQrg=");
+                "/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PZBYCAgMPPCsACwBkZHTpAYYQQIXs/JET7TFTjBqu3SYU");
             request.AddParameter("__EVENTVALIDATION",
-                "/wEWBgKi/dSQAwKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CmGDH9QVaQPr1itVc3r/K/qvjJBc");
+                "/wEWBgKl57TuAgKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CtBj1Z9nVylTy4C9Okzc2CBMDFcB");
             request.AddParameter("rbtnlTipoBusqueda", "0");
             request.AddParameter("txtRncCed", id);
             request.AddParameter("btnBuscaRncCed", "Buscar");
