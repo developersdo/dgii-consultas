@@ -22,16 +22,19 @@ var RncQueryWrapper = function(cedula) {
           '__EVENTTARGET': '',
           '__EVENTARGUMENT': '',
           '__LASTFOCUS': '',
-          '__VIEWSTATE': '/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PDxYCHgdWaXNpYmxlZ2QWBAIBDw8WAh4EVGV4dAUeTm8gZXhpc3RlbiByZWdpc3Ryb3MgQXNvY2lhZG9zZGQCAw88KwALAGRkNbZ1Awnu5Ci/S4J0pkzl4lgkQrg=',
-          '__EVENTVALIDATION': '/wEWBgKi/dSQAwKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CmGDH9QVaQPr1itVc3r/K/qvjJBc',
+          '__VIEWSTATE': '/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PZBYCAgMPPCsACwBkZHTpAYYQQIXs/JET7TFTjBqu3SYU',
+          '__EVENTVALIDATION': '/wEWBgKl57TuAgKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CtBj1Z9nVylTy4C9Okzc2CBMDFcB',
           'rbtnlTipoBusqueda': '0',
-          'txtRncCed': '',
+          'txtRncCed': cedula,
           'btnBuscaRncCed': 'Buscar'
       })
       .set({
           'Content-Type': 'application/x-www-form-urlencoded'
       })
       .end(function(error, res) {
+          if (error)
+            self.emit('error', error);
+
           jsdom.env(
             res.text,
             ['http://code.jquery.com/jquery.js'],
