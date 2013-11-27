@@ -7,9 +7,9 @@ namespace consulta_dgii_csharp
     public class RncQueryWrapper
     {
         /// <summary>
-        /// Queries DGII's RNC database
+        /// Método que hace el query a la base de datos de RNCs
         /// </summary>
-        /// <param name="rncCedula">RNC or Cedula to use</param>
+        /// <param name="rncCedula">RNC o Cedula a usar</param>
         /// <returns></returns>
         public static ResultRnc QueryByRnc(string rncCedula)
         {
@@ -17,6 +17,8 @@ namespace consulta_dgii_csharp
             var client = new RestClient("http://www.dgii.gov.do/app/WebApps/Consultas/");
             var request = new RestRequest("rnc/RncWeb.aspx", Method.POST);
 
+            //Esto en realidad es un force. Son valores que ASP.NET espera en el HTTP Request. 
+            //Denle las gracias a Web Forms por esta ;)
             request.AddParameter("__EVENTTARGET", "");
             request.AddParameter("__EVENTARGUMENT", "");
             request.AddParameter("__LASTFOCUS", "");
@@ -24,15 +26,15 @@ namespace consulta_dgii_csharp
                 "/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PDxYCHgdWaXNpYmxlZ2QWBAIBDw8WAh4EVGV4dGVkZAIDDzwrAAsBAA8WCh4IRGF0YUtleXMWAB4LXyFJdGVtQ291bnQCAR4JUGFnZUNvdW50AgEeFV8hRGF0YVNvdXJjZUl0ZW1Db3VudAIBHwBnZBYCZg9kFgICAQ9kFgxmDw8WAh8BBQswNTYwMTM0NTE5MWRkAgEPDxYCHwEFHUFNSEVEIEFZVUIgSEVSUkVSQSBQT1JUQUxBVElOZGQCAg8PFgIfAQUGJm5ic3A7ZGQCAw8PFgIfAQUCICBkZAIEDw8WAh8BBQZOT1JNQUxkZAIFDw8WAh8BBQZBQ1RJVk9kZGQfMgrkUtdsE6/qgOxobgHnnsmB8Q==");
             request.AddParameter("__EVENTVALIDATION",
                 "/wEWBgKi/dSQAwKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CmGDH9QVaQPr1itVc3r/K/qvjJBc");
+            
+            //Estos son los valores
             request.AddParameter("rbtnlTipoBusqueda", "0");
             request.AddParameter("txtRncCed", rncCedula);
             request.AddParameter("btnBuscaRncCed", "Buscar");
 
-
-            // easily add HTTP Headers
+            // HTTP Headers
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            // execute the request
             var response = client.Execute(request);
 
             var doc = new HtmlDocument();

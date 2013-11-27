@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-namespace consulta_dgii_csharp
+﻿namespace consulta_dgii_csharp
 {
+    /// <summary>
+    /// Estructura retornada por el servicio de consulta de RNC
+    /// </summary>
     public class ResultRnc
     {
         public string CedulaRnc { get; set; }
