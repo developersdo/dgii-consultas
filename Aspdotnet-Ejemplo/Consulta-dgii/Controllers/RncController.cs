@@ -19,14 +19,14 @@ namespace Consulta_dgii.Controllers
             var client = new RestClient("http://www.dgii.gov.do/app/WebApps/Consultas/");
 
             var request = new RestRequest("rnc/RncWeb.aspx", Method.POST);
-
+            
             request.AddParameter("__EVENTTARGET", "");
             request.AddParameter("__EVENTARGUMENT", "");
             request.AddParameter("__LASTFOCUS", "");
             request.AddParameter("__VIEWSTATE",
-                "/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PDxYCHgdWaXNpYmxlZ2QWBAIBDw8WAh4EVGV4dGVkZAIDDzwrAAsBAA8WCh4IRGF0YUtleXMWAB4LXyFJdGVtQ291bnQCAR4JUGFnZUNvdW50AgEeFV8hRGF0YVNvdXJjZUl0ZW1Db3VudAIBHwBnZBYCZg9kFgICAQ9kFgxmDw8WAh8BBQswNTYwMTM0NTE5MWRkAgEPDxYCHwEFHUFNSEVEIEFZVUIgSEVSUkVSQSBQT1JUQUxBVElOZGQCAg8PFgIfAQUGJm5ic3A7ZGQCAw8PFgIfAQUCICBkZAIEDw8WAh8BBQZOT1JNQUxkZAIFDw8WAh8BBQZBQ1RJVk9kZGQfMgrkUtdsE6/qgOxobgHnnsmB8Q==");
+                "/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PZBYCAgMPPCsACwBkZHTpAYYQQIXs/JET7TFTjBqu3SYU");
             request.AddParameter("__EVENTVALIDATION",
-                "/wEWBgKi/dSQAwKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CmGDH9QVaQPr1itVc3r/K/qvjJBc");
+                "/wEWBgKl57TuAgKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CtBj1Z9nVylTy4C9Okzc2CBMDFcB");
             request.AddParameter("rbtnlTipoBusqueda", "0");
             request.AddParameter("txtRncCed", id);
             request.AddParameter("btnBuscaRncCed", "Buscar");
