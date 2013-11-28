@@ -1,0 +1,14 @@
+{
+  "name": "node_consulta_dgii",
+  "version": "0.0.1",
+  "description": "node-consulta-dgii",
+  "main": "app.js",
+  "author": {
+    "name": "Amhed Herrera",
+    "email": ""
+  },
+  "dependencies": {
+    "superagent": "~0.15.7",
+	"jsdom" : "0.8.8"
+  }
+}
