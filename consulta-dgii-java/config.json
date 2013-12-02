@@ -1,0 +1,19 @@
+{
+    "url": "http://www.dgii.gov.do/app/WebApps/Consultas/",
+    "web_resource": "rnc/RncWeb.aspx",
+    "request_cookies": {},
+    "request_headers": {
+        "Content-Type": "application/x-www-form-urlencoded"
+    },
+    "request_parameters": {
+        "__EVENTTARGET": "",
+        "__EVENTARGUMENT": "",
+        "__LASTFOCUS": "",
+        "__VIEWSTATE": "/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PZBYCAgMPPCsACwBkZHTpAYYQQIXs/JET7TFTjBqu3SYU",
+        "__EVENTVALIDATION": "/wEWBgKl57TuAgKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CtBj1Z9nVylTy4C9Okzc2CBMDFcB",
+        "rbtnlTipoBusqueda": "0",
+        "btnBuscaRncCed": "Buscar"
+    },
+    "not_found_string": "Rnc o Cedula no existe",
+    "http_error_string": "No fue posible conectarse al servicio"
+}
