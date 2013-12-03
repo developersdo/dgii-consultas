@@ -6,24 +6,18 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 import net.sf.corn.httpclient.HttpForm;
 import net.sf.corn.httpclient.HttpResponse;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import dodevelopers.consultas.dgii.models.Rnc;
+import dodevelopers.consultas.dgii.util.ParserUtil;
 
 /**
  * Clase para parsear la pagina de la consulta de Rnc/Cedula de la DGII
@@ -64,13 +58,12 @@ public class RncParser {
    */
   public Rnc parseRncConsult(String rncOrCedula) throws URISyntaxException, IOException {
 
-    List<String> rncValues = new ArrayList<String>();
+    Rnc rnc = null;
     String url = getJsonConfig().get("url").getAsString() + getJsonConfig().get("web_resource").getAsString();
     URI uri = new URI(url);
 
     HttpForm form = new HttpForm(uri);
-    setHeaderParamsfromConfig(form);
-    setRequestParamsfromConfig(form);
+    setCommonRequestParamsfromConfig(form);
 
     // Set rnc or cedula paramater
     form.putFieldValue("txtRncCed", rncOrCedula);
@@ -78,20 +71,8 @@ public class RncParser {
     HttpResponse response = form.doPost();
     if (response.getCode() == HttpURLConnection.HTTP_OK) {
       // Http request was Ok, now parsing it
-      Document doc = Jsoup.parse(response.getData());
-      Element trElement = doc.getElementsByClass("GridItemStyle").first();
-      if (trElement != null) {
-        Elements tds = trElement.getElementsByTag("td");
-        for (Element td : tds) {
-          rncValues.add(td.text().replace("&nbsp;", " ").trim());
-        }
-      }
+      rnc = ParserUtil.createRncFromHtml(response.getData(), getJsonConfig());
     }
-    if (rncValues.size() < 6) {
-      String errorMsgTemplate = getJsonConfig().get("not_found_string").getAsString();
-      throw new IllegalArgumentException(errorMsgTemplate);
-    }
-    Rnc rnc = new Rnc(rncValues);
     return rnc;
   }
 
@@ -100,28 +81,22 @@ public class RncParser {
    * 
    * @param httpform
    */
-  private void setRequestParamsfromConfig(HttpForm httpform) {
-    Map<String, String> requestParams = new LinkedHashMap<String, String>();
-    JsonObject jsonHeaderCofig = getJsonConfig().get("request_parameters").getAsJsonObject();
-    for (Map.Entry<String, JsonElement> entry : jsonHeaderCofig.entrySet()) {
-      requestParams.put(entry.getKey(), entry.getValue().getAsString());
-      httpform.putFieldValue(entry.getKey(), entry.getValue().getAsString());
-    }
-  }
-
-  /**
-   * Asigna los parametros contantes de la cabecera del request http
-   * 
-   * @param httpform
-   */
-  private void setHeaderParamsfromConfig(HttpForm httpform) {
+  private void setCommonRequestParamsfromConfig(HttpForm httpform) {
     Map<String, String> headersParams = new LinkedHashMap<String, String>();
     JsonObject jsonHeaderCofig = getJsonConfig().get("request_headers").getAsJsonObject();
+
     for (Map.Entry<String, JsonElement> entry : jsonHeaderCofig.entrySet()) {
       headersParams.put(entry.getKey(), entry.getValue().getAsString());
       httpform.putAdditionalRequestProperty(entry.getKey(), entry.getValue().getAsString());
     }
 
+    Map<String, String> requestParams = new LinkedHashMap<String, String>();
+    JsonObject jsonRequestCofig = getJsonConfig().get("request_parameters").getAsJsonObject();
+
+    for (Map.Entry<String, JsonElement> entry : jsonRequestCofig.entrySet()) {
+      requestParams.put(entry.getKey(), entry.getValue().getAsString());
+      httpform.putFieldValue(entry.getKey(), entry.getValue().getAsString());
+    }
   }
 
   /**

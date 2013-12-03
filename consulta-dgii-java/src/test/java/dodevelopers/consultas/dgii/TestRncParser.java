@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import junit.framework.TestCase;
-import dodevelopers.consultas.dgii.RncParser;
 import dodevelopers.consultas.dgii.models.Rnc;
 
 /**
@@ -21,7 +20,6 @@ public class TestRncParser extends TestCase {
    */
   protected void setUp() throws Exception {    
     parser = new RncParser("config.json");
-    //parser = new RncParser("D://pydev//consulta-dgii//consulta_dgii//config.json");
     assertNotNull(parser);
     assertNotNull(parser.getJsonConfig());
   }
