@@ -1,6 +1,6 @@
 url = "http://www.dgii.gov.do/app/WebApps/Consultas/rnc/RncWeb.aspx"
 
-def get_with_requests():
+def get_with_requests(rnc):
     import requests
     # NO F*ing clue what this is ask Ahmed
     data = {
@@ -10,7 +10,7 @@ def get_with_requests():
               '__VIEWSTATE': '/wEPDwUKMTY4ODczNzk2OA9kFgICAQ9kFgQCAQ8QZGQWAWZkAg0PZBYCAgMPPCsACwBkZHTpAYYQQIXs/JET7TFTjBqu3SYU',
               '__EVENTVALIDATION': '/wEWBgKl57TuAgKT04WJBAKM04WJBAKDvK/nCAKjwtmSBALGtP74CtBj1Z9nVylTy4C9Okzc2CBMDFcB',
               'rbtnlTipoBusqueda': '0',
-              'txtRncCed': '130957096',
+              'txtRncCed': rnc,
               'btnBuscaRncCed': 'Buscar'
           }
 
@@ -28,6 +28,9 @@ def dump_to_file(text,name='a.html'):
 def get_data(html):
     import html5lib
     document = html5lib.parse(html)
+    if "No existen registros Asociados" in html:
+      raise ValueError("RNC Invalid")
+
     row = document.findall(".//{http://www.w3.org/1999/xhtml}tr[@class='GridItemStyle']")
 
     return {
@@ -41,15 +44,22 @@ def get_data(html):
 
 
 def webbyfy(environ, start_response):
-    
-    status = '200 OK'
-    headers = [('Content-type', 'application/json')]
-
     import json
-    html = get_with_requests()
+    rnc = environ.get('PATH_INFO', '').lstrip('/')
+    html = get_with_requests(rnc)
 
-    start_response(status, headers)
-    return json.dumps(get_data(html))
+    try:
+      data = get_data(html)
+      status = '200 OK'
+      headers = [('Content-type', 'application/json')]    
+      start_response(status, headers)
+      return json.dumps(data)
+    except ValueError:
+      status = '400 Bad Request'
+      headers = [('Content-type', 'application/json')]    
+      start_response(status, headers)
+
+      return json.dumps({'error':'Invalid RNC','rnc':rnc})
 
 if __name__ == "__main__":
     from wsgiref.simple_server import make_server
