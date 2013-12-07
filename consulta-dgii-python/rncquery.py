@@ -2,7 +2,6 @@ url = "http://www.dgii.gov.do/app/WebApps/Consultas/rnc/RncWeb.aspx"
 
 def get_with_requests():
     import requests
-
     # NO F*ing clue what this is ask Ahmed
     data = {
               '__EVENTTARGET': '',
@@ -18,7 +17,7 @@ def get_with_requests():
     headers = {'Content-type': 'application/x-www-form-urlencoded'}
 
     r = requests.post(url,data=data,headers=headers)
-    return r.text.encode("latin-1")
+    return r.text.encode("latin-1") #oh dear...
 
 def dump_to_file(text,name='a.html'):
     with open(name,'w') as a:
@@ -41,6 +40,22 @@ def get_data(html):
     }
 
 
-html = get_with_requests()
-print get_data(html)
-#dump_to_file(html)
+def webbyfy(environ, start_response):
+    
+    status = '200 OK'
+    headers = [('Content-type', 'application/json')]
+
+    import json
+    html = get_with_requests()
+
+    start_response(status, headers)
+    return json.dumps(get_data(html))
+
+if __name__ == "__main__":
+    from wsgiref.simple_server import make_server
+
+    httpd = make_server('', 8000, webbyfy)
+    print "Serving HTTP on port 8000..."
+
+    # Respond to requests until process is killed
+    httpd.serve_forever()
