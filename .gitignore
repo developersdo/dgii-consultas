@@ -192,8 +192,12 @@ node_modules/
 # python binaries
 *.pyc
 *.classpath
-/consulta-dgii-java/.project
 .settings
 *.prefs
+venv/
+
+# =========================
+# Java??
+# =========================
 /consulta-dgii-java/.project
 /consulta-dgii-java/.classpath
