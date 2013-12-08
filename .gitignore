@@ -179,3 +179,25 @@ Desktop.ini
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
+
+# =========================
+# Node JS
+# =========================
+
+node_modules/
+
+# =========================
+# Python
+# =========================
+# python binaries
+*.pyc
+*.classpath
+.settings
+*.prefs
+venv/
+
+# =========================
+# Java??
+# =========================
+/consulta-dgii-java/.project
+/consulta-dgii-java/.classpath

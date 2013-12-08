@@ -15,7 +15,6 @@ def get_with_requests(rnc):
           }
 
     headers = {'Content-type': 'application/x-www-form-urlencoded'}
-
     r = requests.post(url,data=data,headers=headers)
     return r.text.encode("latin-1") #oh dear...
 

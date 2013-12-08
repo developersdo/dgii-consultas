@@ -1,0 +1,94 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+ 
+group = 'dodevelopers.consultas.dgii'
+version = '1.0'
+description = 'Wrapper para consultas al portal de DGII'
+ext.packaging = 'jar'
+targetCompatibility = 1.6
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Consulta DGII', 'Implementation-Version': version
+    }
+} 
+
+repositories {
+            mavenCentral() 
+            mavenLocal()
+} 
+dependencies {
+    testCompile 'junit:junit:3.8.1'
+        compile 'org.jsoup:jsoup:1.6.1'
+        compile 'com.google.code.gson:gson:2.2.4'
+        compile 'net.sf.corn:corn-httpclient:1.0.4'                
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
+
+uploadArchives.repositories.mavenDeployer {
+  uniqueVersion = false
+  pom.project {
+          name = 'DGII Conulta RNC'
+          description = description
+          url 'https://github.com/danielgpm/dgii-consultas'
+          inceptionYear '2013'
+                          
+          organization {
+                          name = 'Developers Dominicanos'
+                          url = 'http://developers.do'
+                       }
+                      
+          scm {
+              developerConnection 'git@github.com:danielgpm/dgii-consultas.git'
+              connection 'https://github.com/danielgpm/dgii-consultas.git'
+              url 'https://github.com/danielgpm/dgii-consultas.git'
+          }
+          licenses {
+                  license {
+                          name 'The Apache Software License, Version 2.0'
+                          url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                          distribution 'repo'
+                  }
+          }
+          developers {
+                  developer {
+                              id 'danielgpm'
+                              name 'Daniel Paniagua'
+                              email 'dpaniagua@gmail.com'
+                              roles {
+                                      role 'Developer'
+                              }
+                              timezone '-4'
+                  }                    
+          }
+  }    
+}
+
+// custom tasks
+task "create-dirs" << {
+   sourceSets*.java.srcDirs*.each { it.mkdirs() }
+   sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+}
+
+task sourcesJar(type: Jar, dependsOn:classes) {
+  classifier = 'sources'
+  from new ArrayList(sourceSets).find({ it.name != "test" })*.allSource
+}
+
+// custom task for creating doc jar
+task docJar(type: Jar) {
+  classifier = 'doc'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.9'
+}
